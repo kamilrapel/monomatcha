@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MONO Matcha — Bangkok</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,425;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* MONO MATCHA — Bangkok */
+
+:root {
+  --c-bg: #ffffff;
+  --c-surface-1: #f7f6f1;
+  --c-surface-2: #ededea;
+  --c-surface-3: #d8d6cf;
+  --c-fg: #0b0b0b;
+  --c-fg-muted: #4a4a4a;
+  --c-fg-subtle: #7a7a7a;
+  --c-border: #ededea;
+  --c-border-strong: #d8d6cf;
+
+  --matcha-100: #d4e8b4;
+  --matcha-300: #a8d36b;
+  --matcha-500: #7fb33a;
+  --matcha-700: #4d7a1f;
+  --matcha-900: #2a4810;
+  --neon: #2ea800;
+  --blue: #0052ef;
+
+  --cream: #f1efe8;
+  --cream-2: #e6e3d8;
+  --paper: #faf9f5;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  :root { --neon: color(display-p3 0.18 0.66 0); }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#smooth-wrapper { position: fixed; inset: 0; overflow: hidden; }
+#smooth-content { will-change: transform; }
+body { font-size: 16px; line-height: 1.5; }
+::selection { background: #0b0b0b; color: #fff; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+em.ital { font-family: "Inter Tight"; font-style: italic; font-weight: 400; }
+
+.t-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-fg-subtle);
+  font-weight: 500;
+}
+.mono { font-family: "IBM Plex Mono", monospace; font-feature-settings: "tnum"; }
+.container { max-width: 1440px; margin: 0 auto; padding: 0 32px; }
+
+/* ============ TOP NAV ============ */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 32px;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: saturate(140%) blur(16px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.topnav .brand {
+  display: inline-flex; align-items: center; gap: 12px;
+  cursor: pointer; color: var(--c-fg);
+}
+.topnav .brand:hover { color: var(--neon); }
+.nav-items {
+  display: flex; gap: 4px; justify-content: center;
+}
+.nav-link {
+  display: inline-flex; align-items: baseline; gap: 8px;
+  padding: 8px 14px; border-radius: 99999px;
+  font-size: 14px; font-weight: 500; cursor: pointer;
+  color: var(--c-fg-muted);
+  transition: color 120ms ease, background 120ms ease;
+}
+.nav-link .nav-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px; color: var(--c-fg-subtle);
+}
+.nav-link:hover { color: var(--neon); }
+.nav-link.is-active { background: #00533a; color: #ffffff; }
+.nav-link.is-active:hover { background: #00533a; color: var(--neon); }
+.nav-link.is-active .nav-num { color: rgba(255,255,255,0.6); }
+.nav-cta { display: inline-flex; align-items: center; gap: 16px; }
+.nav-eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-fg-subtle); }
+
+/* ============ BUTTONS ============ */
+.btn-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 99999px;
+  background: #00533a; color: #ffffff;
+  font-weight: 500; font-size: 14px;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.btn-pill:hover { background: var(--neon); color: #fff; }
+.btn-pill-lg { padding: 16px 26px; font-size: 16px; }
+.btn-pill-nav {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 99999px;
+  background: #00533a; color: #ffffff;
+  border: 1.5px solid #00533a;
+  font-weight: 500; font-size: 14px;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.btn-pill-nav:hover { background: var(--neon); border-color: var(--neon); color: #ffffff; }
+.btn-full { width: 100%; justify-content: center; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 22px; border-radius: 99999px;
+  border: 1px solid #00533a;
+  color: #00533a; font-weight: 500; font-size: 14px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.btn-ghost:hover { border-color: var(--neon); color: var(--neon); }
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  padding: 120px 0 0;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(46,168,0,0.10), transparent 60%),
+    var(--c-bg);
+}
+.hero-grid {
+  max-width: 1440px; margin: 0 auto;
+  padding: 60px 32px 0;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+}
+.hero-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--c-fg-subtle); }
+.hero-title {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 400;
+  font-size: clamp(72px, 11vw, 156px);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  margin: 0 0 32px;
+  display: flex; flex-direction: column;
+}
+.hero-word { display: block; color: #00533a; }
+.hero-word-2 { padding-left: 1.2em; color: var(--c-fg-muted); }
+.hero-em {
+  font-style: italic;
+  color: var(--neon);
+  font-weight: 500;
+}
+.hero-lede {
+  font-size: 19px; line-height: 1.5;
+  color: #00533a;
+  max-width: 560px; margin-bottom: 36px;
+  text-wrap: pretty;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero-right {
+  position: relative; align-self: stretch;
+  display: flex; flex-direction: column; gap: 32px;
+  align-items: center; justify-content: center;
+  min-height: 540px;
+}
+.hero-bowl {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 460px; height: 480px;
+  will-change: transform;
+}
+.hero-bowl svg {
+  filter: drop-shadow(0 30px 60px rgba(46,168,0,0.18));
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float { 50% { transform: translateY(-12px); } }
+.hero-ripple {
+  position: absolute; inset: -40px; border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(46,168,0,0.10), transparent 60%);
+  z-index: -1;
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%; max-width: 460px;
+  border-top: 1px solid var(--c-border-strong);
+  padding-top: 20px;
+}
+.hero-stat { padding: 0 16px; border-left: 1px solid var(--c-border); }
+.hero-stat:first-child { border-left: 0; padding-left: 0; }
+.stat-num {
+  font-family: "Inter Tight";
+  font-size: 36px; line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--c-fg);
+}
+.stat-lbl {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-fg-subtle);
+  margin-top: 8px;
+}
+
+.ticker {
+  margin-top: 80px;
+  border-top: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+  overflow: hidden;
+  background: var(--c-surface-1);
+}
+.ticker-track {
+  display: inline-flex; align-items: center;
+  white-space: nowrap;
+  animation: ticker 40s linear infinite;
+  padding: 18px 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px; letter-spacing: 0.1em;
+  color: var(--c-fg-muted);
+}
+.ticker-group { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; }
+.ticker-dot {
+  display: inline-block; width: 5px; height: 5px;
+  background: var(--neon); border-radius: 50%;
+}
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ============ Section heads / shared ============ */
+.section-head {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-bottom: 64px;
+}
+.section-title {
+  font-family: "Inter Tight"; font-weight: 400;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+/* ============ ABOUT ============ */
+.about {
+  background: #00533a;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 90vh;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 0;
+}
+.about .section-title { color: #ffffff; }
+.about .t-eyebrow { color: rgba(255,255,255,0.55); }
+.about-panel-left {
+  padding: 100px 72px;
+  display: flex; flex-direction: column; gap: 56px;
+  justify-content: center;
+}
+.about-panel-right {
+  position: relative; overflow: hidden;
+}
+.about-panel-right img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;
+}
+.about-panel-badge {
+  position: absolute; bottom: 32px; left: 32px;
+  background: #ffffff; color: #00533a;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 10px 20px; border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  margin-bottom: 100px;
+}
+.about-copy p { color: rgba(255,255,255,0.75); font-size: 17px; margin-bottom: 20px; }
+.about-copy p.lead {
+  font-size: 28px; line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #ffffff; margin-bottom: 28px;
+  text-wrap: balance;
+}
+.about-side { display: flex; flex-direction: column; gap: 16px; }
+.about-card {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 28px;
+  color: #ffffff;
+}
+.about-card .about-row {
+  display: flex; justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+}
+.about-card .about-row:last-child { border-bottom: 0; }
+.about-card .about-row span:last-child { color: #ffffff; }
+.about-card .t-eyebrow { display: block; margin-bottom: 8px; color: rgba(255,255,255,0.5); }
+.about-card-dark {
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.about-card-dark p { color: rgba(255,255,255,0.8); }
+.about-pillars {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.pillar {
+  padding: 32px 24px 0 0;
+  border-right: 1px solid rgba(255,255,255,0.18);
+}
+.pillar:last-child { border-right: 0; padding-right: 0; }
+.pillar-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 18px;
+  letter-spacing: 0.08em;
+}
+.pillar h4 {
+  font-family: "Inter Tight"; font-weight: 425;
+  font-size: 24px; letter-spacing: -0.02em;
+  margin-bottom: 12px; color: #ffffff;
+}
+.pillar p { font-size: 15px; color: rgba(255,255,255,0.65); }
+
+/* ============ MENU ============ */
+.menu { padding: 140px 0; background: var(--c-bg); }
+.menu-tabs {
+  display: flex; gap: 6px; align-items: center;
+  border-bottom: 1px solid var(--c-border-strong);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+.menu-tab {
+  display: inline-flex; align-items: baseline; gap: 8px;
+  padding: 10px 18px; border-radius: 99999px;
+  background: var(--c-surface-2);
+  color: var(--c-fg-muted);
+  font-size: 15px; font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+.menu-tab:hover { color: var(--blue); }
+.menu-tab.is-active {
+  background: #0b0b0b; color: #ffffff;
+}
+.menu-tab.is-active .menu-tab-count { color: rgba(255,255,255,0.6); }
+.menu-tab-count { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--c-fg-subtle); }
+.menu-tabs-spacer { flex: 1; }
+.menu-currency { color: var(--c-fg-subtle); }
+
+.menu-list {
+  border-top: 1px solid var(--c-border);
+}
+.menu-row {
+  display: grid;
+  grid-template-columns: 60px 220px 1fr 80px 90px 56px;
+  gap: 24px;
+  align-items: center;
+  padding: 28px 8px;
+  border-bottom: 1px solid var(--c-border);
+  transition: background 120ms ease;
+}
+.menu-row:hover { background: rgba(0,0,0,0.01); }
+.menu-row:hover .menu-add {
+  background: var(--neon); color: #0b0b0b;
+  border-color: var(--neon);
+}
+.menu-code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px; color: var(--c-fg-subtle);
+  letter-spacing: 0.08em;
+}
+.menu-name h3 {
+  font-family: "Inter Tight"; font-weight: 425;
+  font-size: 24px; letter-spacing: -0.025em;
+  line-height: 1.1; margin: 0 0 4px;
+}
+.menu-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; text-transform: uppercase;
+  color: var(--matcha-700); letter-spacing: 0.06em;
+}
+.menu-desc {
+  font-size: 15px; color: var(--c-fg-muted);
+  margin: 0;
+}
+.menu-vol { font-size: 13px; color: var(--c-fg-subtle); text-align: right; }
+.menu-price {
+  font-family: "Inter Tight";
+  font-size: 22px; letter-spacing: -0.02em;
+  text-align: right; color: var(--c-fg);
+}
+.menu-add {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--c-border-strong);
+  font-size: 18px; line-height: 1;
+  color: var(--c-fg-muted);
+  transition: all 120ms ease;
+  cursor: pointer;
+}
+
+.menu-foot {
+  margin-top: 24px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-border);
+}
+.menu-foot-item p { color: var(--c-fg-muted); font-size: 15px; margin-top: 12px; max-width: 480px; }
+
+/* ============ ORDER ============ */
+.order {
+  background: #00533a;
+  color: #ffffff;
+  padding: 140px 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.order .section-title { color: #ffffff; }
+.order .t-eyebrow { color: rgba(255,255,255,0.55); }
+.order .menu-foot-item p { color: rgba(255,255,255,0.65); }
+.order-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.order-builder {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 40px;
+}
+.builder-head { margin-bottom: 32px; }
+.builder-head h3 {
+  font-family: "Inter Tight"; font-weight: 425;
+  font-size: 36px; letter-spacing: -0.03em;
+  line-height: 1; margin: 0 0 8px;
+}
+.builder-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: rgba(255,255,255,0.55);
+}
+.field { margin-bottom: 28px; }
+.field > .t-eyebrow { display: block; margin-bottom: 12px; }
+.field-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; align-items: end;
+}
+.seg {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.seg-4 { grid-template-columns: repeat(4, 1fr); }
+.seg-btn {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  text-align: left;
+  transition: all 120ms ease;
+}
+.seg-btn:hover { border-color: rgba(255,255,255,0.6); color: #ffffff; }
+.seg-btn.is-on {
+  background: #ffffff;
+  color: #00533a;
+  border-color: #ffffff;
+}
+.seg-label { font-size: 15px; font-weight: 500; }
+.seg-meta {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; opacity: 0.7;
+}
+.checks { display: flex; flex-direction: column; gap: 8px; }
+.check {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px; align-items: center;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 120ms ease;
+  color: rgba(255,255,255,0.85);
+}
+.check:hover { border-color: rgba(255,255,255,0.6); }
+.check input { display: none; }
+.check-box {
+  width: 18px; height: 18px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 3px;
+  position: relative;
+}
+.check.is-on .check-box {
+  background: #ffffff; border-color: #ffffff;
+}
+.check.is-on .check-box::after {
+  content: ''; position: absolute;
+  inset: 4px; background: #ffffff;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4'><polyline points='20 6 9 17 4 12'/></svg>") center / contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4'><polyline points='20 6 9 17 4 12'/></svg>") center / contain no-repeat;
+}
+.check-label { font-size: 15px; }
+.check-meta {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px; color: rgba(255,255,255,0.5);
+}
+.qty {
+  display: inline-flex; align-items: center;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 99999px;
+  margin-top: 12px;
+}
+.qty button { width: 44px; height: 44px; font-size: 20px; color: rgba(255,255,255,0.85); }
+.qty button:hover { color: #ffffff; }
+.qty-num {
+  min-width: 40px; text-align: center;
+  font-family: "Inter Tight"; font-size: 20px;
+  color: #ffffff;
+}
+.pickup { display: flex; flex-direction: column; }
+.pickup-time { margin-top: 12px; padding: 12px 16px; background: rgba(255,255,255,0.1); border-radius: 6px; }
+.pickup-now { display: block; font-size: 16px; color: #a8d36b; font-weight: 500; }
+.pickup-meta { display: block; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+.order-receipt {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 32px;
+  position: sticky; top: 96px;
+  color: #ffffff;
+}
+.receipt-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed rgba(255,255,255,0.2);
+}
+.receipt-id { color: rgba(255,255,255,0.5); font-size: 12px; }
+.receipt-line {
+  display: flex; justify-content: space-between;
+  padding: 8px 0;
+  font-size: 15px;
+}
+.receipt-line.muted { color: rgba(255,255,255,0.55); font-size: 14px; }
+.receipt-divider {
+  height: 0; border-top: 1px dashed rgba(255,255,255,0.2);
+  margin: 12px 0;
+}
+.receipt-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 24px;
+  font-size: 16px;
+}
+.receipt-total-num {
+  font-family: "Inter Tight";
+  font-size: 32px; letter-spacing: -0.03em;
+  color: #ffffff;
+}
+.receipt-or {
+  display: flex; align-items: center; gap: 12px;
+  margin: 16px 0;
+  color: rgba(255,255,255,0.45);
+  font-family: "IBM Plex Mono", monospace; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.receipt-or::before, .receipt-or::after {
+  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.2);
+}
+.receipt-meta {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255,255,255,0.2);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.receipt-meta li {
+  display: flex; justify-content: space-between;
+  font-size: 13px; color: rgba(255,255,255,0.65);
+}
+
+.order-channels {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+.channel {
+  display: block;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 120ms ease;
+  color: #ffffff;
+}
+.channel:hover { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); }
+.channel:hover .channel-name { color: #ffffff; }
+.channel-name {
+  font-family: "Inter Tight"; font-weight: 425;
+  font-size: 22px; letter-spacing: -0.025em;
+  margin-bottom: 6px;
+  display: flex; justify-content: space-between;
+  color: #ffffff;
+}
+.channel-arr { color: rgba(255,255,255,0.45); }
+.channel-handle { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+.channel-label { color: rgba(255,255,255,0.45); }
+
+/* ============ LOCATION ============ */
+.location { padding: 140px 0 0; background: var(--c-bg); border-top: 1px solid var(--c-border); }
+.loc-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  margin-bottom: 100px;
+}
+.map-frame {
+  position: relative;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--c-border-strong);
+  aspect-ratio: 16 / 10;
+  background: #f7f6f1;
+}
+.map-frame iframe { width: 100%; height: 100%; position: absolute; inset: 0; }
+.map-controls {
+  position: absolute; top: 16px; right: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.map-controls button {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--c-border-strong);
+  border-radius: 4px;
+  color: var(--c-fg); font-size: 16px;
+}
+.map-controls button:hover { color: var(--blue); border-color: var(--blue); }
+.map-key {
+  position: absolute; bottom: 16px; left: 16px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--c-border-strong);
+  border-radius: 99999px;
+  font-size: 11px; color: var(--c-fg-muted);
+}
+.map-key-dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 0 4px rgba(46,168,0,0.18); }
+
+.loc-info { display: flex; flex-direction: column; gap: 16px; }
+.loc-card {
+  background: var(--c-surface-1);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 32px;
+}
+.loc-card-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+}
+.loc-card-head h3 {
+  font-family: "Inter Tight"; font-weight: 425;
+  font-size: 32px; letter-spacing: -0.03em;
+  margin: 0;
+}
+.open-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 99999px;
+  background: rgba(46,168,0,0.12);
+  color: var(--neon);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.open-pill i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 0 3px rgba(46,168,0,0.25);
+  animation: pulse 2s ease-in-out infinite;
+  font-style: normal;
+  display: inline-block;
+}
+@keyframes pulse { 50% { opacity: 0.5; } }
+.loc-row { margin-bottom: 24px; }
+.loc-row .t-eyebrow { display: block; margin-bottom: 8px; }
+.loc-row p { color: var(--c-fg); font-size: 16px; line-height: 1.5; }
+.loc-row-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-border);
+}
+.loc-row-grid .t-eyebrow { display: block; margin-bottom: 12px; }
+.hours { display: flex; flex-direction: column; gap: 8px; }
+.hours li {
+  display: flex; justify-content: space-between;
+  font-size: 14px; color: var(--c-fg-muted);
+}
+.hours li span:last-child { color: var(--c-fg); }
+
+.loc-transit {
+  background: var(--c-surface-1);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+.loc-transit > .t-eyebrow { display: block; margin-bottom: 16px; }
+.transit { display: flex; flex-direction: column; gap: 0; }
+.transit li {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 16px; align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid var(--c-border);
+}
+.transit li:first-child { border-top: 0; padding-top: 0; }
+.transit li:last-child { padding-bottom: 0; }
+.transit-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 32px;
+  background: var(--c-surface-2);
+  color: var(--c-fg);
+  border-radius: 4px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.transit li > div { display: flex; flex-direction: column; gap: 2px; }
+.transit strong {
+  font-family: "Inter Tight"; font-weight: 500;
+  font-size: 16px;
+}
+.transit span { color: var(--c-fg-muted); font-size: 13px; }
+
+/* ============ FOOTER ============ */
+.footer {
+  padding: 80px 0 32px;
+  border-top: 1px solid var(--c-border);
+  background: var(--c-bg);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--c-border);
+}
+.footer-mark { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.footer-brand p { color: var(--c-fg-muted); font-size: 15px; max-width: 320px; }
+.footer-col .t-eyebrow { display: block; margin-bottom: 16px; color: var(--c-fg); }
+.footer-col ul { display: flex; flex-direction: column; gap: 8px; }
+.footer-col li { color: var(--c-fg-muted); font-size: 14px; cursor: pointer; transition: color 120ms ease; }
+.footer-col li:hover { color: var(--blue); }
+.footer-bottom {
+  display: flex; justify-content: space-between;
+  padding-top: 24px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; color: var(--c-fg-subtle);
+  letter-spacing: 0.08em;
+}
+
+/* ============ Responsive ============ */
+/* ============ HAMBURGER ============ */
+.nav-burger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px;
+  background: none; border: 0;
+}
+.nav-burger span {
+  display: block; width: 22px; height: 2px;
+  background: #00533a; border-radius: 2px;
+  transition: all 200ms ease;
+}
+.nav-mobile-menu {
+  display: none;
+  position: fixed; inset: 0; z-index: 49;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(16px);
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px;
+}
+.nav-mobile-menu.is-open { display: flex; }
+.nav-mobile-link {
+  font-size: 28px; font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #00533a;
+  padding: 12px 32px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.nav-mobile-link:hover { color: var(--neon); }
+
+@media (max-width: 960px) {
+  .topnav { grid-template-columns: auto 1fr auto; padding: 12px 20px; }
+  .nav-items { display: none; }
+  .nav-burger { display: flex; }
+  .nav-cta .nav-eyebrow { display: none; }
+
+  /* HERO */
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 0; }
+  .hero-right { min-height: 280px; }
+  .hero-bowl { width: 260px; height: 280px; }
+
+  /* ABOUT */
+  .about { grid-template-columns: 1fr; min-height: auto; }
+  .about-panel-left { padding: 64px 24px; gap: 40px; }
+  .about-panel-right { height: 60vw; min-height: 280px; }
+  .about-pillars { grid-template-columns: 1fr 1fr; }
+  .pillar { border-right: 0; padding-right: 0; }
+
+  /* MENU */
+  .menu-foot, .loc-grid, .loc-row-grid { grid-template-columns: 1fr; }
+  .menu-row {
+    grid-template-columns: 40px 1fr auto;
+    grid-template-areas: "code name price" "code desc desc" "code vol add";
+    gap: 8px 12px;
+  }
+  .menu-code { grid-area: code; }
+  .menu-name { grid-area: name; }
+  .menu-desc { grid-area: desc; font-size: 13px; }
+  .menu-vol { grid-area: vol; text-align: left; }
+  .menu-price { grid-area: price; }
+  .menu-add { grid-area: add; }
+
+  /* ORDER */
+  .order-grid { grid-template-columns: 1fr; }
+  .seg-4 { grid-template-columns: 1fr 1fr; }
+  .order-channels { grid-template-columns: 1fr 1fr; }
+  .order-receipt { position: static; }
+
+  /* FOOTER */
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; }
+
+  /* CONTAINER */
+  .container { padding: 0 20px; }
+  .menu { padding: 80px 0; }
+  .order { padding: 80px 0; }
+  .location { padding: 80px 0 0; }
+}
+</style>
+</head>
+<body>
+<div id="nav-portal"></div>
+<div id="smooth-wrapper">
+  <div id="smooth-content">
+    <div id="root"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+// MONO MATCHA — components
+
+const LogoMark = ({ size = 28, color = "#00533a" }) => (
+  <svg width={size} height={size * (496 / 470)} viewBox="0 0 470.78 496.23" fill={color} aria-hidden="true">
+    <path d="M161.04,210.15c-21.89,6.45-51.25,18.3-68.21,32.02l-.17.13c-1.39,1.02-9.28,7.76-6.18,6.68,2.48-.98,10.09-6.37,27.03-13.39,7.84-3.33,15.76-6.55,23.8-9.79,18.01-7.12,36.44-14.68,53.77-20.44,6.43-2.78-14.49,0-30.03,4.78Z"/>
+    <path d="M297.5,204.36c-2.36-.24-4.21-.78-6.02-.27-.37.59,4.43,1.9,14.65,6.04,1.38.56,2.87,1.18,4.46,1.85,24.15,10.63,54.55,22.64,77.22,35.42l.19.11c1.67.78,10.69,7.16,8.17,3.88-19.72-21.72-68.37-41.65-98.67-47.02Z"/>
+    <path d="M220.25,446.82c-7.15,0-12.94,3.82-12.94,8.54s5.79,8.53,12.94,8.53,12.94-3.82,12.94-8.53-5.79-8.54-12.94-8.54Z"/>
+    <path d="M459.96,190.02c-16.64-49.03-49.04-89.52-96.29-120.34-32.46-21.43-72.52-35.16-109.91-39.27l5.82-9.27-12.87,7.18L223.45,0l6.92,29.32c-.36.01-.73.03-1.09.05l-18.07-12.59,8.46,13.29c-36.82,3.63-80.8,18.16-112.56,39.62C59.85,100.51,27.46,140.99,10.82,190.02,4.23,209.43.64,229.46,0,249.34v12.64c.88,28.54,7.85,56.43,20.79,81.38l3.3,6.37,12.65-10.25c4.12,13.45,10.15,26.12,16.02,38.47,14.91,31.03,32.55,62.32,60.6,82.48,42.85,30.03,99.79,40.35,151.08,34.04,40.44-5.56,81.74-19.46,110.53-49.4,18.86-19.07,31.24-43.15,43.03-67.12,5.87-12.34,11.9-25.02,16.02-38.47l12.65,10.25,3.3-6.37c12.95-24.95,19.92-52.84,20.79-81.38v-12.64c-.64-19.88-4.23-39.91-10.82-59.32ZM415.6,360.07c-20.24,49.48-54.13,93.53-106.32,111.22-61.96,21.84-137.72,16.33-191.06-23.29-35.28-26.87-61.6-73.78-72.07-116.08l-.06-.26c-8.69-36.57,1.3-70.4,23.35-96.11l1.6-18.17c.8,4.58,1.6,9.16,2.4,13.75,11.05-11.67,24.69-21.47,40.24-28.83,8.89-4.34,18.31-7.82,28.06-10.62,1.43-5.11,2.86-10.23,4.28-15.34l3.16,13.35c29.11-7.23,60.65-8.84,89.71-8.76.23,0,.46,0,.69,0l6.98-10.35-.02,10.46c24.42.5,49.75,2.49,73.78,8.34,1.41-2.82,2.82-5.64,4.23-8.45l3.97,10.62c19.85,5.66,38.61,14.23,54.99,27.08,1.32-2.9,2.64-5.79,3.95-8.69l5.94,17.2c37.52,35.59,42.91,84.81,22.21,132.93Z"/>
+    <path d="M264.94,348.45c-10.64-1.47,17.03-30.86,23.35-36.41,6.88-7.6,34.7-29.88,29.17-13.65-6.34,14.25-38.03,47.02-52.3,50.05h-.22Z"/>
+    <path d="M262.51,294.96c1.47-10.64,30.86,17.03,36.41,23.35,7.6,6.88,29.88,34.7,13.65,29.17-14.25-6.34-47.02-38.03-50.05-52.3v-.22Z"/>
+    <path d="M135.59,341.57c-10.64-1.47,17.03-30.86,23.35-36.41,6.88-7.6,34.7-29.88,29.17-13.65-6.34,14.25-38.03,47.02-52.3,50.05h-.22Z"/>
+    <path d="M133.16,288.08c1.47-10.64,30.86,17.03,36.41,23.35,7.6,6.88,29.88,34.7,13.65,29.17-14.25-6.34-47.02-38.03-50.05-52.3v-.22Z"/>
+  </svg>
+);
+
+const Wordmark = ({ height = 22, color = "#00533a" }) => (
+  <svg height={height} viewBox="0 0 712.18 219.42" fill={color} aria-hidden="true" style={{ width: 'auto' }}>
+    <path d="M47.66,4.24l40.67,62.28L128.79,4.24h47.66v148.27h-54.01v-50.2l-29.87,50.2h-8.68l-29.87-50.2v50.2H0V4.24h47.66Z"/>
+    <path d="M272.19,0c50.41,0,79.86,35.16,79.86,77.74s-29.44,79.01-79.86,79.01-79.86-35.16-79.86-77.74S221.77,0,272.19,0ZM272.19,101.67c12.5,0,19.91-9.96,19.91-23.72s-7.41-23.72-19.91-23.72-20.12,10.17-20.12,23.94,7.41,23.51,20.12,23.51Z"/>
+    <path d="M435.36,4.05v20.26c8.39-14.18,24.02-24.31,47.75-24.31,29.23,0,54.12,18.23,54.12,63.38v89.13h-73.51v-71.48c0-10.13-2.89-14.76-11-14.76-9.84,0-14.47,6.37-14.47,17.36v68.88h-73.51V4.05h70.61Z"/>
+    <path d="M630.27,0c50.41,0,79.86,35.16,79.86,77.74s-29.44,79.01-79.86,79.01-79.86-35.16-79.86-77.74S579.86,0,630.27,0ZM630.27,101.67c12.5,0,19.91-9.96,19.91-23.72s-7.41-23.72-19.91-23.72-20.12,10.17-20.12,23.94,7.41,23.51,20.12,23.51Z"/>
+    <path d="M516.25,198.91c0-7.2-3.86-10.86-9.64-10.86s-9.96,3.79-9.96,11.38v19.41h-5.79v-19.93c0-7.2-3.86-10.86-9.64-10.86s-9.96,3.79-9.96,11.38v19.41h-5.85v-35.23h5.85v5.08c2.31-3.73,6.49-5.72,11.12-5.72,5.79,0,10.61,2.57,12.92,7.84,2.06-5.08,7.07-7.84,12.47-7.84,8.04,0,14.27,5.01,14.27,15.11v20.76h-5.79v-19.93Z"/>
+    <path d="M546.14,183.04c6.56,0,11.06,3.34,13.11,7.01v-6.43h5.91v35.23h-5.91v-6.56c-2.12,3.79-6.69,7.14-13.18,7.14-9.39,0-16.65-7.39-16.65-18.32s7.26-18.06,16.71-18.06ZM547.3,188.11c-6.43,0-11.89,4.69-11.89,12.98s5.46,13.18,11.89,13.18,11.96-4.82,11.96-13.11-5.53-13.05-11.96-13.05Z"/>
+    <path d="M576.35,188.43h-4.56v-4.82h4.56v-8.87h5.85v8.87h9.19v4.82h-9.19v20.76c0,3.47,1.29,4.69,4.89,4.69h4.31v4.95h-5.27c-6.24,0-9.77-2.57-9.77-9.64v-20.76Z"/>
+    <path d="M613.44,183.04c8.74,0,14.46,4.5,16.26,11.89h-6.3c-1.22-4.24-4.76-6.94-9.96-6.94-6.43,0-11.19,4.56-11.19,13.18s4.76,13.31,11.19,13.31c5.21,0,8.68-2.51,9.96-6.94h6.3c-1.8,7.01-7.52,11.89-16.26,11.89-10.03,0-17.16-7.07-17.16-18.26s7.14-18.13,17.16-18.13Z"/>
+    <path d="M637.48,171.27h5.85v17.42c2.31-3.73,6.69-5.72,11.64-5.72,7.84,0,14.08,5.01,14.08,15.11v20.76h-5.79v-19.93c0-7.2-3.92-10.86-9.84-10.86s-10.09,3.73-10.09,11.31v19.48h-5.85v-47.57Z"/>
+    <path d="M693.15,183.04c6.56,0,11.06,3.34,13.11,7.01v-6.43h5.91v35.23h-5.91v-6.56c-2.12,3.79-6.69,7.14-13.18,7.14-9.39,0-16.65-7.39-16.65-18.32s7.26-18.06,16.71-18.06ZM694.31,188.11c-6.43,0-11.89,4.69-11.89,12.98s5.46,13.18,11.89,13.18,11.96-4.82,11.96-13.11-5.53-13.05-11.96-13.05Z"/>
+  </svg>
+);
+
+// ================= TOP NAV =================
+const TopNav = ({ active, setActive }) => {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const items = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'menu', label: 'Menu' },
+    { id: 'order', label: 'Order' },
+    { id: 'location', label: 'Location' },
+  ];
+  const go = (id) => {
+    setActive(id);
+    setMenuOpen(false);
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (window.__smoother) {
+      window.__smoother.scrollTo(el, true, 'top top');
+    } else {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  return (
+    <>
+      <nav className="topnav">
+        <a className="brand" onClick={() => go('home')}>
+          <Wordmark height={31} />
+        </a>
+        <ul className="nav-items">
+          {items.map((it, idx) => (
+            <li key={it.id}>
+              <a
+                className={'nav-link' + (active === it.id ? ' is-active' : '')}
+                onClick={() => go(it.id)}
+              >
+                <span className="nav-label" style={{ textTransform: 'uppercase' }}>{it.label}</span>
+                <span className="nav-num">/{String(idx + 1).padStart(2, '0')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="nav-cta">
+          <span className="nav-eyebrow">BKK · 26°C</span>
+          <a className="btn-pill-nav" onClick={() => go('order')}>Order now</a>
+          <button className="nav-burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
+            <span style={{ opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }} />
+          </button>
+        </div>
+      </nav>
+      <div className={'nav-mobile-menu' + (menuOpen ? ' is-open' : '')}>
+        {items.map((it, idx) => (
+          <a key={it.id} className="nav-mobile-link" onClick={() => go(it.id)}>
+            <span style={{ color: 'rgba(0,83,58,0.35)', fontSize: 14, marginRight: 12, fontFamily: 'IBM Plex Mono' }}>/{String(idx + 1).padStart(2, '0')}</span>
+            {it.label}
+          </a>
+        ))}
+      </div>
+    </>
+  );
+};
+
+// ================= HERO =================
+const Hero = () => (
+  <section id="home" className="hero">
+    <div className="hero-grid">
+      <div className="hero-left" data-speed="1.05">
+        <div className="hero-meta">
+          <span className="t-eyebrow">Bangkok · Handcrafted Matcha</span>
+          <span className="hero-dot" />
+          <span className="t-eyebrow">EST. 2024 — SUKHUMVIT, BKK</span>
+        </div>
+        <h1 className="hero-title">
+          <span className="hero-word hero-word-1">Made with</span>
+          <span className="hero-word hero-word-2"><em className="hero-em">love &amp;</em></span>
+          <span className="hero-word hero-word-3">matcha.</span>
+        </h1>
+        <p className="hero-lede">
+          A small, honest matcha project by someone who simply loves making it — one bowl at a time, with care.
+        </p>
+        <div className="hero-actions">
+          <a href="#order" className="btn-pill btn-pill-lg">Order now →</a>
+          <a href="#location" className="btn-ghost">39 Sukhumvit Soi 11 →</a>
+        </div>
+      </div>
+      <div className="hero-right" data-speed="0.85">
+        <div className="hero-bowl" data-speed="1.25">
+          <LogoMark size={420} />
+        </div>
+        <div className="hero-stats" data-speed="0.95">
+          <div className="hero-stat">
+            <div className="stat-num">12g</div>
+            <div className="stat-lbl">Per single shot</div>
+          </div>
+          <div className="hero-stat">
+            <div className="stat-num">73°</div>
+            <div className="stat-lbl">Water temp</div>
+          </div>
+          <div className="hero-stat">
+            <div className="stat-num">100</div>
+            <div className="stat-lbl">Whisks / cup</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// ================= ABOUT =================
+const About = () => (
+  <section id="about" className="about">
+    <div className="about-panel-left">
+      <div className="section-head" style={{ marginBottom: 0 }}>
+        <span className="t-eyebrow">02 / ABOUT</span>
+        <h2 className="section-title">
+          Just a girl<br />who <em className="ital">loves</em><br />matcha.
+        </h2>
+      </div>
+      <div className="about-copy">
+        <p className="lead">
+          Hi — I'm the one behind Mono. I'm not a barista by training, and I don't come from the food industry. I'm just someone who fell completely in love with matcha.
+        </p>
+        <p>
+          For years I made it at home, experimenting with every combination I could think of. Friends kept asking for more — so eventually, Mono was born.
+        </p>
+        <p>
+          Mono is small on purpose. Every cup is made by hand, by me. No shortcuts, no rush. Just good matcha, made with love.
+        </p>
+        <p className="about-sig" style={{ marginTop: 24, fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.6)' }}>— The girl behind Mono</p>
+      </div>
+      <div className="about-pillars" style={{ borderTop: '1px solid rgba(255,255,255,0.18)' }}>
+        {[
+          { n: '01', h: 'Pure Matcha', p: 'The classic. Just matcha, whisked to a smooth vivid green.' },
+          { n: '02', h: 'Matcha Latte', p: 'Ceremonial matcha meets creamy milk. Our most-loved cup.' },
+          { n: '03', h: 'White Malt', p: 'Subtly sweet, gently malty. A little unexpected. Totally worth it.' },
+          { n: '04', h: 'Ube Matcha', p: 'Purple ube meets green matcha. Two colours, one dreamy cup.' },
+        ].map(({ n, h, p }) => (
+          <div className="pillar" key={n}>
+            <div className="pillar-num">{n}</div>
+            <h4>{h}</h4>
+            <p>{p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="about-panel-right">
+      <img src="matcha-photo.jpg" alt="Handcrafted matcha in Bangkok" />
+      <span className="about-panel-badge">Handmade in Bangkok</span>
+    </div>
+  </section>
+);
+
+// ================= MENU =================
+const Menu = () => {
+  const [tab, setTab] = React.useState('cold');
+  const tabs = [
+    { id: 'cold', label: 'Cold' },
+  ];
+  const items = {
+    cold: [
+      { code: '01', name: 'Pure Matcha', sub: 'Pure & cold', desc: 'The classic on ice. Whisked matcha over a single ice rock. Exactly one ingredient.', vol: '', price: '160' },
+      { code: '02', name: 'Matcha Latte', sub: 'Cold milk, layered', desc: 'Cold whole milk, matcha shot poured on top. Stir before drinking.', vol: '', price: '170' },
+      { code: '03', name: 'Matcha White Malt', sub: 'Cold & malty', desc: 'White malt and matcha over ice — refreshing, gently sweet. A house favourite.', vol: '', price: '170' },
+      { code: '04', name: 'Ube Matcha', sub: 'Purple & dreamy', desc: 'Purple ube meets green matcha, layered over ice. Two colours, one stunning cup.', vol: '', price: '180' },
+    ],
+  };
+
+  return (
+    <section id="menu" className="menu">
+      <div className="container">
+        <div className="section-head" data-speed="1.08">
+          <span className="t-eyebrow">03 / MENU</span>
+          <h2 className="section-title">
+            What I <em className="ital">make</em><br />for you.
+          </h2>
+        </div>
+        <div className="menu-tabs">
+          {tabs.map(t => (
+            <button key={t.id} className={'menu-tab' + (tab === t.id ? ' is-active' : '')} onClick={() => setTab(t.id)}>
+              <span>{t.label}</span>
+              <span className="menu-tab-count">{items[t.id].length}</span>
+            </button>
+          ))}
+          <div className="menu-tabs-spacer" />
+          <span className="t-eyebrow menu-currency">PRICES IN THB</span>
+        </div>
+        <div className="menu-list">
+          {items[tab].map(it => (
+            <div className="menu-row" key={it.code}>
+              <div className="menu-code">{it.code}</div>
+              <div className="menu-name">
+                <h3>{it.name}</h3>
+                <span className="menu-sub">{it.sub}</span>
+              </div>
+              <p className="menu-desc">{it.desc}</p>
+              <div className="menu-vol mono">{it.vol}</div>
+              <div className="menu-price">฿{it.price}</div>
+              <button className="menu-add" aria-label="Add to order">+</button>
+            </div>
+          ))}
+        </div>
+        <div className="menu-foot">
+          <div className="menu-foot-item">
+            <span className="t-eyebrow">ALLERGENS</span>
+            <p>Whole / oat / coconut milk. No refined sugar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ================= ORDER =================
+const Order = () => {
+  const [flavor, setFlavor] = React.useState('latte');
+  const [size, setSize] = React.useState('m');
+  const [milk, setMilk] = React.useState('whole');
+  const [extra, setExtra] = React.useState({ doubleShot: false, ice: true });
+  const [qty, setQty] = React.useState(1);
+
+  const flavors = [
+    { id: 'pure',  label: 'Pure Matcha',      price: 160 },
+    { id: 'latte', label: 'Matcha Latte',      price: 170 },
+    { id: 'malt',  label: 'Matcha White Malt', price: 170 },
+    { id: 'ube',   label: 'Ube Matcha',        price: 180 },
+  ];
+  const sizes = [
+    { id: 'm', label: 'Regular', vol: '', extra: 0 },
+    { id: 'l', label: 'Large',   vol: '', extra: 20 },
+  ];
+  const milks = [
+    { id: 'whole',   label: 'Whole',   d: 'Default' },
+    { id: 'oat',     label: 'Oat',     d: '+฿20' },
+    { id: 'coconut', label: 'Coconut', d: '+฿30' },
+  ];
+
+  const base = flavors.find(f => f.id === flavor).price;
+  const sizeAdd = sizes.find(s => s.id === size).extra;
+  const milkAdd = milk === 'oat' ? 20 : milk === 'coconut' ? 30 : 0;
+  const dbl = extra.doubleShot ? 60 : 0;
+  const subtotal = (base + sizeAdd + milkAdd + dbl) * qty;
+
+  return (
+    <section id="order" className="order">
+      <div className="container">
+        <div className="section-head" data-speed="1.08">
+          <span className="t-eyebrow">04 / ORDER</span>
+          <h2 className="section-title">
+            Get your<br /><em className="ital">cup.</em>
+          </h2>
+        </div>
+        <div className="order-grid">
+          <div className="order-builder">
+            <div className="builder-head">
+              <h3>{flavors.find(f => f.id === flavor).label}</h3>
+              <span className="builder-sub">Handmade · Cold · Bangkok</span>
+            </div>
+            <div className="field">
+              <span className="t-eyebrow">SMAK</span>
+              <div className="seg seg-4">
+                {flavors.map(f => (
+                  <button key={f.id} className={'seg-btn' + (flavor === f.id ? ' is-on' : '')} onClick={() => setFlavor(f.id)}>
+                    <span className="seg-label">{f.label}</span>
+                    <span className="seg-meta">{f.price ? `+฿${f.price}` : 'Base'}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="field">
+              <span className="t-eyebrow">SIZE</span>
+              <div className="seg">
+                {sizes.map(s => (
+                  <button key={s.id} className={'seg-btn' + (size === s.id ? ' is-on' : '')} onClick={() => setSize(s.id)}>
+                    <span className="seg-label">{s.label}</span>
+                    <span className="seg-meta">{s.extra > 0 ? `+฿${s.extra}` : `฿${base}`}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            {flavor !== 'pure' && (
+            <div className="field">
+              <span className="t-eyebrow">MILK</span>
+              <div className="seg seg-4">
+                {milks.map(m => (
+                  <button key={m.id} className={'seg-btn' + (milk === m.id ? ' is-on' : '')} onClick={() => setMilk(m.id)}>
+                    <span className="seg-label">{m.label}</span>
+                    <span className="seg-meta">{m.d}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            )}
+            <div className="field">
+              <span className="t-eyebrow">EXTRAS</span>
+              <div className="checks">
+                {[
+                  { id: 'doubleShot', label: 'Double matcha shot', d: '+฿60' },
+                  { id: 'ice', label: 'Ice rock', d: 'Free' },
+                ].map(c => (
+                  <label key={c.id} className={'check' + (extra[c.id] ? ' is-on' : '')}>
+                    <input type="checkbox" checked={extra[c.id]} onChange={e => setExtra({ ...extra, [c.id]: e.target.checked })} />
+                    <span className="check-box" />
+                    <span className="check-label">{c.label}</span>
+                    <span className="check-meta">{c.d}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div className="field field-row">
+              <div>
+                <span className="t-eyebrow">QUANTITY</span>
+                <div className="qty">
+                  <button onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
+                  <span className="qty-num">{qty}</span>
+                  <button onClick={() => setQty(qty + 1)}>+</button>
+                </div>
+              </div>
+              <div className="pickup">
+                <span className="t-eyebrow">PICKUP</span>
+                <div className="pickup-time">
+                  <span className="pickup-now">Ready in 8 min</span>
+                  <span className="pickup-meta">Asoke / Soi 11 only</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside className="order-receipt">
+            <div className="receipt-head">
+              <span className="t-eyebrow">YOUR ORDER</span>
+              <span className="receipt-id mono">#0428</span>
+            </div>
+            <div className="receipt-line">
+              <span>{flavors.find(f => f.id === flavor).label} · {sizes.find(s => s.id === size).label}</span>
+              <span className="mono">฿{base + sizeAdd}</span>
+            </div>
+            <div className="receipt-line muted">
+              <span>{milks.find(m => m.id === milk).label} milk</span>
+              <span className="mono">{milkAdd > 0 ? `+฿${milkAdd}` : '—'}</span>
+            </div>
+            {extra.doubleShot && <div className="receipt-line muted"><span>Double shot</span><span className="mono">+฿60</span></div>}
+            <div className="receipt-line muted"><span>Quantity</span><span className="mono">× {qty}</span></div>
+            <div className="receipt-divider" />
+            <div className="receipt-total">
+              <span>Subtotal</span>
+              <span className="receipt-total-num">฿{subtotal}</span>
+            </div>
+            <button className="btn-pill btn-pill-lg btn-full">Send order via Line →</button>
+            <div className="receipt-or"><span>or</span></div>
+            <button className="btn-ghost btn-full">Walk in — show this screen</button>
+            <ul className="receipt-meta">
+              <li><span>Pickup</span><span className="mono">Sukhumvit 11</span></li>
+              <li><span>ETA</span><span className="mono">8 min</span></li>
+              <li><span>Pay</span><span className="mono">PromptPay / Card</span></li>
+            </ul>
+          </aside>
+        </div>
+
+        <div className="order-channels">
+          {[
+            { name: 'Line', handle: '@monomatcha', label: 'Fastest' },
+            { name: 'GrabFood', handle: 'Mono Matcha · Asoke', label: '11am – 3pm' },
+            { name: 'LineMan', handle: 'Mono Matcha BKK', label: '7am – 4pm' },
+            { name: 'Walk-in', handle: '39 Sukhumvit Soi 11', label: 'Always open until sold out' },
+          ].map(c => (
+            <a key={c.name} className="channel">
+              <div className="channel-name">{c.name} <span className="channel-arr">→</span></div>
+              <div className="channel-handle mono">{c.handle}</div>
+              <div className="channel-label t-eyebrow">{c.label}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ================= LOCATION =================
+const Location = () => (
+  <section id="location" className="location">
+    <div className="container">
+      <div className="section-head" data-speed="1.08">
+        <span className="t-eyebrow">05 / LOCATION</span>
+        <h2 className="section-title">
+          Behind Soi 11.<br /><em className="ital">Past the Japanese bookshop.</em>
+        </h2>
+      </div>
+      <div className="loc-grid">
+        <div className="loc-map">
+          <div className="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.7338!2d100.55159!3d13.74075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ece4bce3209%3A0x5b36b94e1a3c4a9f!2sSukhumvit+Soi+11%2C+Khlong+Toei+Nuea%2C+Watthana%2C+Bangkok!5e0!3m2!1sen!2sth!4v1716000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0, display: 'block' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="MONO Matcha location"
+            />
+          </div>
+        </div>
+        <div className="loc-info">
+          <div className="loc-card">
+            <div className="loc-card-head">
+              <h3>Sukhumvit 11</h3>
+              <span className="open-pill"><i /> Open · until sold out</span>
+            </div>
+            <div className="loc-row">
+              <span className="t-eyebrow">ADDRESS</span>
+              <p>39/4 Sukhumvit Soi 11<br/>Khlong Toei Nuea, Watthana<br/>Bangkok 10110, Thailand</p>
+            </div>
+            <div className="loc-row-grid">
+              <div>
+                <span className="t-eyebrow">HOURS</span>
+                <ul className="hours">
+                  <li><span>Mon — Fri</span><span className="mono">07:00 — sold out</span></li>
+                  <li><span>Saturday</span><span className="mono">08:00 — sold out</span></li>
+                  <li><span>Sunday</span><span className="mono">08:00 — 14:00</span></li>
+                </ul>
+              </div>
+              <div>
+                <span className="t-eyebrow">CONTACT</span>
+                <ul className="hours">
+                  <li><span>Line</span><span className="mono">@monomatcha</span></li>
+                  <li><span>Phone</span><span className="mono">+66 2 254 8839</span></li>
+                  <li><span>IG</span><span className="mono">@mono.matcha</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="loc-transit">
+            <span className="t-eyebrow">HOW TO GET HERE</span>
+            <ul className="transit">
+              <li>
+                <span className="transit-icon">BTS</span>
+                <div><strong>Nana</strong><span>5-min walk along Sukhumvit Rd, then turn into Soi 11.</span></div>
+                <span className="mono">450 m</span>
+              </li>
+              <li>
+                <span className="transit-icon">MRT</span>
+                <div><strong>Sukhumvit</strong><span>Exit 3, walk west past Terminal 21, ~ 9 minutes.</span></div>
+                <span className="mono">800 m</span>
+              </li>
+              <li>
+                <span className="transit-icon">Grab</span>
+                <div><strong>Drop on Soi 11</strong><span>Tell the driver "ตรงข้าม Cheap Charlie" — opposite Cheap Charlie.</span></div>
+                <span className="mono">15 min</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer className="footer">
+      <div className="container footer-grid">
+        <div className="footer-brand">
+          <div className="footer-mark">
+            <LogoMark size={56} />
+            <Wordmark height={28} />
+          </div>
+          <p>One leaf, one method, one cup. Made in Bangkok since 2024.</p>
+        </div>
+        <div className="footer-col">
+          <span className="t-eyebrow">VISIT</span>
+          <ul>
+            <li>39/4 Sukhumvit Soi 11</li>
+            <li>Bangkok 10110</li>
+            <li>Mon–Sat 07:00 — sold out</li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <span className="t-eyebrow">ORDER</span>
+          <ul>
+            <li>Line · @monomatcha</li>
+            <li>GrabFood · Mono Matcha</li>
+            <li>LineMan · Mono Matcha BKK</li>
+          </ul>
+        </div>
+        <div className="footer-col">
+          <span className="t-eyebrow">FOLLOW</span>
+          <ul>
+            <li>Instagram → @mono.matcha</li>
+            <li>TikTok → @monomatcha</li>
+            <li>Newsletter → Subscribe</li>
+          </ul>
+        </div>
+      </div>
+      <div className="container footer-bottom">
+        <span className="mono">© 2026 MONO MATCHA CO., LTD.</span>
+        <span className="mono">DESIGNED IN BKK · BREWED IN UJI</span>
+      </div>
+    </footer>
+  </section>
+);
+
+// ================= APP =================
+function App() {
+  const [active, setActive] = React.useState('home');
+
+  React.useEffect(() => {
+    window.__setActiveNav = setActive;
+    return () => { delete window.__setActiveNav; };
+  }, []);
+
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <TopNav active={active} setActive={setActive} />,
+        document.getElementById('nav-portal')
+      )}
+      <main>
+        <Hero />
+        <About />
+        <Menu />
+        <Order />
+        <Location />
+      </main>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.ScrollSmoother && window.gsap) {
+      const init = () => {
+        gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+        window.__smoother = ScrollSmoother.create({
+          wrapper: '#smooth-wrapper',
+          content: '#smooth-content',
+          smooth: 1.4,
+          effects: true,
+          normalizeScroll: true,
+          smoothTouch: 0.1,
+        });
+
+        const sections = ['home','about','menu','order','location'];
+        sections.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 40%',
+            onEnter: () => { if (window.__setActiveNav) window.__setActiveNav(id); },
+            onEnterBack: () => { if (window.__setActiveNav) window.__setActiveNav(id); },
+          });
+        });
+      };
+      requestAnimationFrame(() => requestAnimationFrame(init));
+    }
+  });
+</script>
+</body>
+</html>
