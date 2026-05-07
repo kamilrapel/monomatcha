@@ -828,10 +828,17 @@ em.ital { font-family: "Inter Tight"; font-style: italic; font-weight: 400; }
 .nav-mobile-link:hover { color: var(--neon); }
 
 @media (max-width: 960px) {
+  /* smooth wrapper — normalny scroll na mobile */
+  #smooth-wrapper { position: static; overflow: visible; }
+  #smooth-content { will-change: auto; }
+
+  /* NAV: logo | hamburger (środek) | Order Now (prawo) */
   .topnav { grid-template-columns: auto 1fr auto; padding: 12px 20px; }
   .nav-items { display: none; }
-  .nav-burger { display: flex; }
+  .nav-cta { display: contents; }
   .nav-cta .nav-eyebrow { display: none; }
+  .nav-burger { display: flex; grid-column: 2; justify-self: center; }
+  .btn-pill-nav { grid-column: 3; }
 
   /* HERO */
   .hero-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 0; }
@@ -1452,7 +1459,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 
 <script>
   window.addEventListener('load', () => {
-    if (window.ScrollSmoother && window.gsap) {
+    const isMobile = window.innerWidth <= 960;
+
+    if (!isMobile && window.ScrollSmoother && window.gsap) {
       const init = () => {
         gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
         window.__smoother = ScrollSmoother.create({
@@ -1461,7 +1470,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
           smooth: 1.4,
           effects: true,
           normalizeScroll: true,
-          smoothTouch: 0.1,
+          smoothTouch: 0,
         });
 
         const sections = ['home','about','menu','order','location'];
@@ -1477,6 +1486,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />);
         });
       };
       requestAnimationFrame(() => requestAnimationFrame(init));
+    } else if (isMobile && window.gsap) {
+      // Na mobile — tylko ScrollTrigger do podświetlania nav, bez smoothera
+      gsap.registerPlugin(ScrollTrigger);
+      const sections = ['home','about','menu','order','location'];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 40%',
+          onEnter: () => { if (window.__setActiveNav) window.__setActiveNav(id); },
+          onEnterBack: () => { if (window.__setActiveNav) window.__setActiveNav(id); },
+        });
+      });
     }
   });
 </script>
