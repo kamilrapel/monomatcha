@@ -818,14 +818,29 @@ em.ital { font-family: "Inter Tight"; font-style: italic; font-weight: 400; }
 }
 .nav-mobile-menu.is-open { display: flex; }
 .nav-mobile-link {
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  align-items: center;
+  width: 100%;
+  max-width: 340px;
   font-size: 28px; font-weight: 500;
   letter-spacing: -0.02em;
   color: #00533a;
-  padding: 12px 32px;
+  padding: 12px 0;
   cursor: pointer;
   text-transform: uppercase;
 }
+.nav-mobile-link .nav-mobile-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: rgba(0,83,58,0.4);
+  justify-self: start;
+}
+.nav-mobile-link .nav-mobile-label {
+  text-align: center;
+}
 .nav-mobile-link:hover { color: var(--neon); }
+.nav-mobile-link:hover .nav-mobile-num { color: var(--neon); opacity: 0.5; }
 
 @media (max-width: 960px) {
   /* smooth wrapper — normalny scroll na mobile */
@@ -837,8 +852,8 @@ em.ital { font-family: "Inter Tight"; font-style: italic; font-weight: 400; }
   .nav-items { display: none; }
   .nav-cta { display: contents; }
   .nav-cta .nav-eyebrow { display: none; }
-  .nav-burger { display: flex; grid-column: 2; justify-self: center; }
-  .btn-pill-nav { grid-column: 3; }
+  .nav-burger { display: flex; grid-column: 2; justify-self: center; align-self: center; }
+  .btn-pill-nav { grid-column: 3; align-self: center; }
 
   /* HERO */
   .hero-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 0; }
@@ -984,8 +999,8 @@ const TopNav = ({ active, setActive }) => {
       <div className={'nav-mobile-menu' + (menuOpen ? ' is-open' : '')}>
         {items.map((it, idx) => (
           <a key={it.id} className="nav-mobile-link" onClick={() => go(it.id)}>
-            <span style={{ color: 'rgba(0,83,58,0.35)', fontSize: 14, marginRight: 12, fontFamily: 'IBM Plex Mono' }}>/{String(idx + 1).padStart(2, '0')}</span>
-            {it.label}
+            <span className="nav-mobile-num">/{String(idx + 1).padStart(2, '0')}</span>
+            <span className="nav-mobile-label">{it.label}</span>
           </a>
         ))}
       </div>
