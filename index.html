@@ -848,12 +848,12 @@ em.ital { font-family: "Inter Tight"; font-style: italic; font-weight: 400; }
   #smooth-content { will-change: auto; }
 
   /* NAV: logo | hamburger (środek) | Order Now (prawo) */
-  .topnav { grid-template-columns: auto 1fr auto; padding: 12px 20px; }
+  .topnav { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; position: relative; }
   .nav-items { display: none; }
-  .nav-cta { display: contents; }
+  .nav-cta { display: flex; align-items: center; }
   .nav-cta .nav-eyebrow { display: none; }
-  .nav-burger { display: flex; grid-column: 2; justify-self: center; align-self: center; }
-  .btn-pill-nav { grid-column: 3; align-self: center; }
+  .nav-burger { display: flex; position: absolute; left: 50%; transform: translateX(-50%); }
+  .btn-pill-nav { position: relative; z-index: 1; }
 
   /* HERO */
   .hero-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 0; }
